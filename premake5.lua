@@ -10,16 +10,12 @@ project "glad"
   targetdir ("%{wks.location}/bin/" .. outputdir .. "/%{prj.name}")
   objdir ("%{wks.location}/build/" .. outputdir .. "%{prj.name}")
 
-  IncludeDir["glad"] = "%{wks.location}/libs/glad/include"
-
-  includedirs {
-    "%{IncludeDir.glad}"
-  }
-
   files {
     "premake5.lua",
+
     "include/glad/gl.h",
     "include/KHR/khrplatform.h",
+    
     "src/gl.c",
   }
 
@@ -36,3 +32,9 @@ project "glad"
   filter "configurations:Release"
     runtime "Release"
     optimize "On"
+
+  usage "PUBLIC"
+    includedirs { "./include" }
+
+  usage "INTERFACE"
+    links { "glad" }
